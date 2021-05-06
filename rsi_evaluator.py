@@ -13,7 +13,7 @@ def rsi_eval(df, rsi_number, count):
 	rsi=0
 	diff=[]
 	
-	open=df['open']
+	open=df['open'] 
 	close=df['close']
 
 	for i in range(len(df.index)):
@@ -33,25 +33,14 @@ def rsi_eval(df, rsi_number, count):
 	rsi = 100-(100 / (1+RS.iloc[-1]))
 
 	print(rsi)
-	# print(df.tail())
 	return rsi
 
-def get_data(tickers, count):
+def get_rsi_data(tickers, count):
 	request_count=0
 	request_limit_per_second=10
 
 	time_start=time.time()
-
 	rsi_dictionary={}
-
-	df=pyupbit.get_ohlcv('KRW-ETH', interval="minute10", count=count)
-	# print(df[['open', 'close']])
-	new_df= df.iloc[::-1]
-	# new_df=df
-
-	rsi=rsi_eval(new_df[['open', 'close']], 14, count)
-
-			
 
 	for ticker in tickers:
 		print(ticker)
@@ -83,7 +72,7 @@ def main():
 		print("main")
 		# rsiEval(tickers, 500)
 
-		rsi_dic=get_data(tickers, 14)
+		rsi_dic=get_rsi_data(tickers, 14)
 
 		sorted_dic=dict(sorted(rsi_dic.items(), key=lambda item: item[1]))
 		print(sorted_dic)
